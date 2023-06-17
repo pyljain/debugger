@@ -1,0 +1,34 @@
+syntax = "proto3";
+option go_package = "debugger/proto";
+
+service Debugger {
+    rpc CreateLease(CreateLeaseRequest) returns (Lease);
+    rpc ApproveLease(ApproveLeaseRequest) returns (Lease);
+    rpc ListLease(ListLeaseRequest) returns (ListLeaseResponse);
+}
+
+message CreateLeaseRequest {
+    string deployment = 1;
+    string namespace = 2;
+    int32 ttl = 3;
+}
+
+message Lease {
+    int32 lease_id = 1;
+    string deployment = 2;
+    string namespace = 3;
+    int32 ttl = 4;
+    string status = 5;
+}
+
+message ApproveLeaseRequest {
+    int32 lease_id = 1;
+}
+
+message ListLeaseRequest {
+
+}
+
+message ListLeaseResponse {
+    repeated Lease leases = 1;
+}
